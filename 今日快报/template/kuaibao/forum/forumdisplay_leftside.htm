@@ -1,0 +1,16 @@
+
+<!--{loop $leftside['forums'] $upfid $gdata}-->
+	<dl class="{if $fgroupid == $upfid || $_G['setting']['leftsideopen']}a{/if}" id="lf_$upfid">
+		<dt><a href="javascript:;" hidefocus="true" onclick="leftside('lf_$upfid')" title="$gdata['name']">$gdata['name']</a></dt>
+	<!--{loop $gdata['sub'] $subfid $name}-->
+		<dd{if $_G['fid'] == $subfid || $_G['forum']['fup'] == $subfid} class="bdl_a"{/if}>
+			<!--{if !empty($_G['cache']['forums'][$subfid]['domain']) && !empty($_G['setting']['domain']['root']['forum'])}-->
+				<a href="http://{$_G['cache']['forums'][$subfid]['domain']}.{$_G['setting']['domain']['root']['forum']}" title="$name">$name</a>
+			<!--{else}-->
+				<a href="forum.php?mod=forumdisplay&fid=$subfid" title="$name">$name</a>
+			<!--{/if}-->
+            <i></i>
+		</dd>
+	<!--{/loop}-->
+	</dl>
+<!--{/loop}-->

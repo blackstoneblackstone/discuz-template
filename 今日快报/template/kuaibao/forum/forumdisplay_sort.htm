@@ -1,0 +1,21 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<div id="threadlist" class="bm bmw"{if $_G['uid']} style="position: relative;"{/if}>
+	<!--{if $quicksearchlist && !$_GET['archiveid']}-->
+		<!--{subtemplate forum/search_sortoption}-->
+	<!--{/if}-->
+	$sorttemplate['header']
+	<form method="post" autocomplete="off" name="moderate" id="moderate" action="forum.php?mod=topicadmin&action=moderate&fid=$_G[fid]&infloat=yes&nopost=yes">
+		$sorttemplate['body']
+		<!--{if $_G['forum']['ismoderator'] && $_G['forum_threadcount']}-->
+			<!--{template forum/topicadmin_modlayer}-->
+		<!--{/if}-->
+	</form>
+	$sorttemplate['footer']
+</div>
+
+<div class="bm bw0 pgs cl">
+	$multipage
+	<span {if $_G[setting][visitedforums]}id="visitedforumstmp" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})"{/if} class="pgb y"><a href="forum.php">{lang return_index}</a></span>
+	
+	<!--{hook/forumdisplay_postbutton_bottom}-->
+</div>

@@ -1,0 +1,690 @@
+<!--{template common/header}-->
+
+
+<script type="text/javascript">var fid = parseInt('$_G[fid]'), tid = parseInt('$_G[tid]');</script>
+<!--{if $modmenu['thread'] || $modmenu['post']}-->
+	<script type="text/javascript" src="{$_G['setting']['jspath']}forum_moderate.js?{VERHASH}"></script>
+<!--{/if}-->
+
+<script type="text/javascript" src="{$_G['setting']['jspath']}forum_viewthread.js?{VERHASH}"></script>
+<script type="text/javascript">zoomstatus = parseInt($_G['setting']['zoomstatus']);var imagemaxwidth = '{$_G['setting']['imagemaxwidth']}';var aimgcount = new Array();</script>
+
+<style id="diy_style" type="text/css"></style>
+
+
+<!--{hook/viewthread_top}-->
+<!--{ad/text/wp a_t}-->
+
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a><em>&rsaquo;</em><a href="forum.php">{$_G[setting][navs][2][navname]}</a>$navigation <em>&rsaquo;</em> <a href="forum.php?mod=viewthread&tid=$_G[tid]">$_G[forum_thread][short_subject]</a>
+	</div>
+</div>
+
+
+<div class="wp bgcc">
+<div class="aacd">
+
+
+<!--[diy=diynavtop]--><div id="diynavtop" class="area"></div><!--[/diy]-->
+<!--[diy=diynavtop]--><div id="diynavtop" class="area"></div><!--[/diy]-->
+</div>
+</div>
+
+
+
+<div id="ct" class="wp cl">
+<div class="ctleft ">
+
+
+
+<div class="right_main" style="margin-top:0;">
+				
+				<div style="height:50px;">
+					<a href="forum.php?mod=post&action=newthread&fid={$_G['fid']}&typeid={$_GET['typeid']}" target="_blank" class="forumlist_newthread" onclick="ga('send','event','keyaction_click_pc','click','post_firststep<!--{if $_G['forum']['allowpostspecial'] & 32}-->_new<!--{/if}-->');">+&nbsp;发帖</a>
+				
+					<div class="forumlist_newthread" style="float:right;color:black;background:white;"><a id="post_reply" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}">发回帖</a></div>
+				</div>
+				<div class="threadfunc_div fix_top_menu">
+	
+		<div class="seperator_div_1"></div>
+		<div class="func_share">
+			<img src="template/xinglan_h12/image/jian.png" />分享至：
+			<div class="func_share_btn">
+				<a href="misc.php?mod=chat&action=qrcode&tid={$_G['tid']}" onclick="return false;"  id="k_share_to_chat"><i></i><img src="template/xinglan_h12/image/2.png" /></a>
+				<a href="javascript:void(0);" id="k_share_to_sina" onclick="posttoweibo();"><i></i></a>
+				<!-- <a href="misc.php?mod=chat&action=code&tid={$_G['tid']}" onclick="showWindow('share_to_chat', this.href)" title="{lang qqconnect:connect_viewthread_share_to_chat}" id="k_share_to_chat"><i></i></a> -->
+				<a href="javascript:void(0);" id="k_qqshare" onclick="postToQzone();" title="{lang qqconnect:connect_viewthread_share_to_qzone}"><i></i></a>
+				<script type="text/javascript">
+					function posttoweibo(){
+						var pic = "";
+						jQuery("#postlist .first_post_table .pct img").each(function(){
+							pic += encodeURIComponent(jq(this).attr("src"))+'||';
+						})
+						var title = jQuery("#postlist .pppaaa h1 span").text();
+						var share_url = "http://service.weibo.com/share/share.php?url="+ encodeURIComponent(window.location.href) + "&pic=" + pic + "&title=" + encodeURIComponent(title)+"&appkey=";
+						window.open(share_url);
+						return false;
+					}
+					function postToQzone(){
+						var  title = jQuery("#postlist .pppaaa h1 span").text();
+						var pic = "";
+						jQuery("#postlist .first_post_table .pct img").each(function(){
+							pic += encodeURIComponent(jq(this).attr("src"))+'||';
+						})
+						var share_url = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url="+ encodeURIComponent(window.location.href) + "&pics=" + pic + "&title=" + encodeURIComponent(title);
+						window.open(share_url);
+						return false;
+					}
+				</script>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+				
+				<div class="bml pbn" id="bkmc">
+<a href="forum.php?mod=collection&action=view&ctid={$colletion[ctid]}" target="_blank" style="display:none"><img src="{IMGDIR}/forum{if $followcollections[$key]['lastvisit'] < $colletion['lastupdate']}_new{/if}.gif" alt="$colletion[name]" /></a>
+
+				<!--{if $_G[forum][banner] && !$subforumonly}--><img src="$_G[forum][banner]" alt="$_G['forum'][name]" /><!--{/if}-->
+				
+							
+					<div class="command">
+						<ul>
+							
+						</ul>
+					</div>				
+			
+				<!--{if !empty($forumarchive)}-->
+					<div id="forumarchive_menu" class="p_pop" style="display:none">
+						<ul>
+							<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]">{lang threads_all}</a></li>
+							<!--{loop $forumarchive $id $info}-->
+							<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&archiveid=$id">{$info['displayname']} ({$info['threads']})</a></li>
+							<!--{/loop}-->
+						</ul>
+					</div>
+				<!--{/if}-->
+                
+			
+			</div>
+			<div></div>
+              
+				<!--[diy=diyleftsidebottom]--><div id="diyleftsidebottom" class="area"></div><!--[/diy]-->
+				<!--[diy=diyleftsidebottoma]--><div id="diyleftsidebottoma" class="area"></div><!--[/diy]-->
+				<!--[diy=diyleftsidebottomab]--><div id="diyleftsidebottomab" class="area"></div><!--[/diy]--> 
+                <!--[diy=diyleftsidebottomc]--><div id="diyleftsidebottomc" class="area"></div><!--[/diy]-->
+				<!--{hook/forumdisplay_leftside_bottom}-->
+			</div>
+
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+
+</div>
+
+
+<div class="ct right">
+	<div id="pgta" class="pgs mbm cl {if $modmenu['thread']}pbm bbs{/if}">
+		<div class="pgt">$multipage</div>
+		<span class="y pgb"{if $_G['setting']['visitedforums']} id="visitedforums" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'34'})"{/if}><a href="$upnavlink">{lang return_forumdisplay}</a></span>
+		<!--{if $_G['forum']['threadsorts'] && $_G['forum']['threadsorts']['templatelist']}-->
+			<!--{loop $_G['forum']['threadsorts']['types'] $id $name}-->
+				<button id="newspecial" class="pn pnc" onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]&extra=$extra&sortid=$id'"><strong>{lang i_want}$name</strong></button>
+			<!--{/loop}-->
+		<!--{else}-->
+			<!--{if !$_G['forum_thread']['is_archived']}--><div class="fatie"><a id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}">发新帖</a></div><!--{/if}-->
+		<!--{/if}-->
+		<!--{if $allowpostreply && !$_G['forum_thread']['archiveid']}-->
+			<div class="fatie r"><a id="post_reply" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}">发回帖</a></div>
+		<!--{/if}-->
+		<!--{hook/viewthread_postbutton_top}-->
+	</div>
+
+
+
+
+<!--{if $_G['group']['allowpost'] && ($_G['group']['allowposttrade'] || $_G['group']['allowpostpoll'] || $_G['group']['allowpostreward'] || $_G['group']['allowpostactivity'] || $_G['group']['allowpostdebate'] || $_G['setting']['threadplugins'] || $_G['forum']['threadsorts'])}-->
+	<ul class="p_pop" id="newspecial_menu" style="display: none">
+		<!--{if !$_G['forum']['allowspecialonly']}--><li><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]">{lang post_newthread}</a></li><!--{/if}-->
+		<!--{if $_G['forum']['threadsorts'] && !$_G['forum']['allowspecialonly']}-->
+			<!--{loop $_G['forum']['threadsorts']['types'] $id $threadsorts}-->
+				<!--{if $_G['forum']['threadsorts']['show'][$id]}-->
+					<li class="popupmenu_option"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&sortid=$id">$threadsorts</a></li>
+				<!--{/if}-->
+			<!--{/loop}-->
+		<!--{/if}-->
+		<!--{if $_G['group']['allowpostpoll']}--><li class="poll"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=1">{lang post_newthreadpoll}</a></li><!--{/if}-->
+		<!--{if $_G['group']['allowpostreward']}--><li class="reward"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=3">{lang post_newthreadreward}</a></li><!--{/if}-->
+		<!--{if $_G['group']['allowpostdebate']}--><li class="debate"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=5">{lang post_newthreaddebate}</a></li><!--{/if}-->
+		<!--{if $_G['group']['allowpostactivity']}--><li class="activity"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=4">{lang post_newthreadactivity}</a></li><!--{/if}-->
+		<!--{if $_G['group']['allowposttrade']}--><li class="trade"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=2">{lang post_newthreadtrade}</a></li><!--{/if}-->
+		<!--{if $_G['setting']['threadplugins']}-->
+			<!--{loop $_G['forum']['threadplugin'] $tpid}-->
+				<!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && @in_array($tpid, $_G['group']['allowthreadplugin'])}-->
+					<li class="popupmenu_option"{if $_G['setting']['threadplugins'][$tpid][icon]} style="background-image:url(source/plugin/$tpid/$_G['setting']['threadplugins'][$tpid][icon])"{/if}><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&specialextra=$tpid">{$_G['setting']['threadplugins'][$tpid][name]}</a></li>
+				<!--{/if}-->
+			<!--{/loop}-->
+		<!--{/if}-->
+	</ul>
+<!--{/if}-->
+
+<!--{if $modmenu['post']}-->
+	<div id="mdly" class="fwinmask" style="display:none;z-index:350;">
+		<table cellspacing="0" cellpadding="0" class="fwin">
+			<tr>
+				<td class="t_l"></td>
+				<td class="t_c"></td>
+				<td class="t_r"></td>
+			</tr>
+			<tr>
+				<td class="m_l">&nbsp;&nbsp;</td>
+				<td class="m_c">
+					<div class="f_c">
+						<div class="c">
+							<h3>{lang admin_select}&nbsp;<strong id="mdct" class="xi1"></strong>&nbsp;{lang piece}: </h3>
+							<!--{if $_G['forum']['ismoderator']}-->
+								<!--{if $_G['group']['allowwarnpost']}--><a href="javascript:;" onclick="modaction('warn')">{lang modmenu_warn}</a><span class="pipe">|</span><!--{/if}-->
+								<!--{if $_G['group']['allowbanpost']}--><a href="javascript:;" onclick="modaction('banpost')">{lang modmenu_banpost}</a><span class="pipe">|</span><!--{/if}-->
+								<!--{if $_G['group']['allowdelpost'] && !$rushreply}--><a href="javascript:;" onclick="modaction('delpost')">{lang modmenu_deletepost}</a><span class="pipe">|</span><!--{/if}-->
+							<!--{/if}-->
+							<!--{if $_G['forum']['ismoderator'] && $_G['group']['allowstickreply'] || $_G['forum_thread']['authorid'] == $_G['uid']}--><a href="javascript:;" onclick="modaction('stickreply')">{lang modmenu_stickpost}</a><span class="pipe">|</span><!--{/if}-->
+							<!--{if $_G['forum_thread']['pushedaid'] && $allowpostarticle}--><a href="javascript:;" onclick="modaction('pushplus', '', 'aid=$_G[forum_thread][pushedaid]', 'portal.php?mod=portalcp&ac=article&op=pushplus')">{lang modmenu_pushplus}</a><span class="pipe">|</span><!--{/if}-->
+						</div>
+					</div>
+				</td>
+				<td class="m_r"></td>
+			</tr>
+			<tr>
+				<td class="b_l"></td>
+				<td class="b_c"></td>
+				<td class="b_r"></td>
+			</tr>
+		</table>
+	</div>
+<!--{/if}-->
+
+<!--{if $modmenu['thread']}-->
+	<div id="modmenu" class="xi2 pbm">
+		<!--{eval $modopt=0;}-->
+		<!--{if $_G['forum']['ismoderator']}-->
+			<!--{if $_G['group']['allowdelpost']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(3, 'delete')">{lang modmenu_deletethread}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowbumpthread'] && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(3, 'bump')">{lang modmenu_updown}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowstickthread'] && ($_G['forum_thread']['displayorder'] <= 3 || $_G['adminid'] == 1) && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(1, 'stick')">{lang modmenu_stickthread}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowlivethread'] && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('live')">{lang modmenu_live}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowhighlightthread'] && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(1, 'highlight')">{lang modmenu_highlight}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowdigestthread'] && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(1, 'digest')">{lang modmenu_digestpost}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowrecommendthread'] && !empty($_G['forum']['modrecommend']['open']) && $_G['forum']['modrecommend']['sort'] != 1 && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(1, 'recommend')">{lang modmenu_recommend}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowstampthread'] && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('stamp')">{lang modmenu_stamp}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowstamplist'] && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('stamplist')">{lang modmenu_icon}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowclosethread'] && !$_G['forum_thread']['is_archived'] && $_G['forum']['status'] != 3}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(4)"><!--{if !$_G['forum_thread']['closed']}-->{lang modmenu_switch_off}<!--{else}-->{lang modmenu_switch_on}<!--{/if}--></a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowmovethread'] && !$_G['forum_thread']['is_archived'] && $_G['forum']['status'] != 3}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(2, 'move')">{lang modmenu_move}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowedittypethread'] && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modthreads(2, 'type')">{lang modmenu_type}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if !$_G['forum_thread']['special'] && !$_G['forum_thread']['is_archived']}-->
+				<!--{if $_G['group']['allowcopythread'] && $_G['forum']['status'] != 3}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('copy')">{lang modmenu_copy}</a><span class="pipe">|</span><!--{/if}-->
+				<!--{if $_G['group']['allowmergethread'] && $_G['forum']['status'] != 3}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('merge')">{lang modmenu_merge}</a><span class="pipe">|</span><!--{/if}-->
+				<!--{if $_G['group']['allowrefund'] && $_G['forum_thread']['price'] > 0}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('refund')">{lang modmenu_restore}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{/if}-->
+			<!--{if $_G['group']['allowsplitthread'] && !$_G['forum_thread']['is_archived'] && $_G['forum']['status'] != 3}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('split')">{lang modmenu_split}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowrepairthread'] && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('repair')">{lang modmenu_repair}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['forum_thread']['is_archived'] && $_G['adminid'] == 1}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('restore', '', 'archiveid={$_G[forum_thread][archiveid]}')">{lang modmenu_archive}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['forum_firstpid']}-->
+				<!--{if $_G['group']['allowwarnpost']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('warn', '$_G[forum_firstpid]')">{lang modmenu_warn}</a><span class="pipe">|</span><!--{/if}-->
+				<!--{if $_G['group']['allowbanpost']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('banpost', '$_G[forum_firstpid]')">{lang modmenu_banthread}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{/if}-->
+			<!--{if $_G['group']['allowremovereward'] && $_G['forum_thread']['special'] == 3 && !$_G['forum_thread']['is_archived']}--><!--{eval $modopt++}--><a href="javascript:;" onclick="modaction('removereward')">{lang modmenu_removereward}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['forum']['status'] == 3 && in_array($_G['adminid'], array('1','2')) && $_G['forum_thread']['closed'] < 1}--><a href="javascript:;" onclick="modthreads(5, 'recommend_group');return false;">{lang modmenu_grouprecommend}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['allowmanagetag']}--><a href="javascript:;" onclick="showWindow('mods', 'forum.php?mod=tag&op=manage&tid=$_G[tid]', 'get', 0)">{lang post_tag}</a><span class="pipe">|</span><!--{/if}-->
+			<!--{if $_G['group']['alloweditusertag']}--><a href="javascript:;" onclick="showWindow('usertag', 'forum.php?mod=misc&action=usertag&tid=$_G[tid]', 'get', 0)">{lang usertag}</a><span class="pipe">|</span><!--{/if}-->
+		<!--{/if}-->
+		<!--{if $allowpusharticle && $allowpostarticle}--><!--{eval $modopt++}--><a href="portal.php?mod=portalcp&ac=article&from_idtype=tid&from_id=$_G['tid']">{lang modmenu_pusharticle}</a><span class="pipe">|</span><!--{/if}-->
+		<!--{hook/viewthread_modoption}-->
+	</div>
+<!--{/if}-->
+
+<!--{hook/viewthread_beginline}-->
+
+<div id="postlist" class="pl bm">
+	<table cellspacing="0" cellpadding="0" class="aabbdd">
+		<tr>
+			<!--{if !$close_leftinfo}-->
+			<td class="pls ptn pbn sdad">
+				<!--{if $_G['page'] > 1}-->
+				<div id="tath" class="cl">
+					<!--{if $_G[forum_thread][authorid] && $_G[forum_thread][author]}-->
+						<a href="home.php?mod=space&uid=$_G[forum_thread][authorid]" title="$_G[forum_thread][author]"><!--{avatar($_G[forum_thread][authorid],small)}--></a>
+						{lang thread_author}: <a href="home.php?mod=space&uid=$_G[forum_thread][authorid]" title="$_G[forum_thread][author]">$_G[forum_thread][author]</a>
+					<!--{else}-->
+						{lang thread_author}:
+						<!--{if $_G['forum']['ismoderator']}-->
+							<a href="home.php?mod=space&uid=$_G[forum_thread][authorid]">{lang anonymous}</a>
+						<!--{else}-->
+							{lang anonymous}
+						<!--{/if}-->
+					<!--{/if}-->
+				</div>
+				<!--{else}-->
+				<div class="hm ptn">
+					<span class="xg1">{lang show}:</span> <span class="xi1">$_G[forum_thread][views]</span><span class="pipe">|</span><span class="xg1">{lang reply}:</span> <span class="xi1">$_G[forum_thread][allreplies]</span>
+				</div>
+				<!--{/if}-->
+			</td>
+			<!--{/if}-->
+			<td class="plc ptm pbn vwthd sdad">
+				<!--{if !IS_ROBOT}-->
+				
+				<!--{/if}-->
+				<!--{if $_G['setting']['close_leftinfo_userctrl']}-->
+					<span class="xg1 side_btn">
+					<!--{if !$close_leftinfo}-->
+						<a onclick="setcookie('close_leftinfo', 1);location.reload();" title="{lang collapse_the_left}" class="btn_s_close" href="javascript:;"><img src="template/xinglan_h12/image/control_l.png" alt="{lang collapse_the_left}" class="vm" /></a>
+					<!--{else}-->
+						<a onclick="setcookie('close_leftinfo', 2);location.reload();" title="{lang open_the_left}" class="btn_s_open" href="javascript:;"><img src="template/xinglan_h12/image/control_r.png" alt="{lang open_the_left}" class="vm" /></a>
+					<!--{/if}-->
+					</span>
+				<!--{/if}-->
+				<h1 class="ts">
+                
+					<!--{if $_G['forum_thread']['typeid'] && $_G['forum']['threadtypes']['types'][$_G['forum_thread']['typeid']]}-->
+						<!--{if !IS_ROBOT && ($_G['forum']['threadtypes']['listable'] || $_G['forum']['status'] == 3)}-->
+							<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&typeid=$_G[forum_thread][typeid]">[{$_G['forum']['threadtypes']['types'][$_G['forum_thread']['typeid']]}]</a>
+						<!--{else}-->
+							[{$_G['forum']['threadtypes']['types'][$_G['forum_thread']['typeid']]}]
+						<!--{/if}-->
+					<!--{/if}-->
+					<!--{if $threadsorts && $_G['forum_thread']['sortid']}-->
+						<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$_G[forum_thread][sortid]">[{$_G['forum']['threadsorts']['types'][$_G['forum_thread']['sortid']]}]</a>
+					<!--{/if}-->
+					<span id="thread_subject">$_G[forum_thread][subject]</span>
+				</h1>
+                <p>
+             
+                <div class="authi">
+                <div class="f-fl">
+                
+	  <!--{if $_G[forum_thread][authorid] && $_G[forum_thread][author]}-->
+        <a href="home.php?mod=space&uid=$thread[authorid]" target="_blank"  ><img src="<!--{avatar($thread[authorid], middle, true)}-->" class="avatar" style="
+    padding-top: 10px; border-radius: 50%; padding:18px 0px; border="0" width="25" height="25" /></a>
+		   <!--{/if}-->
+    </div>
+				<!--{if $close_leftinfo && !$post['anonymous'] && $postshowavatars && $showavatars}-->
+					
+                    
+                   <a href="javascript:;" class="zzee">$post[author]</a> 
+                    
+				<!--{/if}-->
+				<!--{eval $_self = $thread['author'] && $post['author'] == $thread['author'] && $post['position'] !== '1';}-->
+				<!--{if $_self }-->
+					$post[author]&nbsp;&nbsp;<img class="authicn vm" id="authicon$post[pid]" src="{IMGDIR}/ico_lz.png" />
+				<!--{else}-->
+					<!--{if !$post['anonymous'] && $_G['cache']['groupicon'][$post['groupid']]}-->
+						<img class="authicn vm" id="authicon$post[pid]" src="$_G['cache']['groupicon'][$post['groupid']]" />
+					<!--{else}-->
+						<img class="authicn vm" id="authicon$post[pid]" src="$_G['cache']['groupicon'][0]" />
+					<!--{/if}-->
+				<!--{/if}-->
+
+				<!--{if $post['authorid'] && !$post['anonymous']}-->
+				
+					<!--{if $_self}-->
+					&nbsp;{lang thread_author}<span class="pipe">|</span>
+                    
+					<!--{/if}-->
+					<!--{if !$_G['setting']['authoronleft']}--><a href="home.php?mod=space&uid=$post[authorid]" target="_blank" class="xi2">$post[author]</a>$authorverifys<!--{/if}-->
+					<!--{if $close_leftinfo}--><!--{/if}-->
+                    
+					<em id="authorposton$post[pid]">{lang poston} {eval echo date('Y-m-d H:i:s',$thread[dateline])}</em>
+                    
+					<!--{if $post['status'] & 8}-->
+						<span class="xg1"><!--{if $_G['setting']['mobile']['mobilecomefrom']}-->{$_G['setting']['mobile']['mobilecomefrom']}<!--{else}-->{lang from_mobile}<!--{/if}--></span>
+					<!--{/if}-->
+                    
+                    <!--{if $post['first'] }-->
+                 
+				<!--{/if}-->
+                    
+					<!--{if $post['invisible'] == 0}-->
+						<span class="pipe">|</span>
+                        <span class="xi1 l">$_G[forum_thread][views]人看过</span><span class="xi1 r">$_G[forum_thread][allreplies]回复</span>
+						<!--{if !IS_ROBOT && !$_GET['authorid'] && !$_G['forum_thread']['archiveid']}-->
+							<a href="forum.php?mod=viewthread&tid=$post[tid]&page=$page&authorid=$post[authorid]" rel="nofollow">{lang thread_show_author}</a>
+						<!--{elseif !$_G['forum_thread']['archiveid']}-->
+							<a href="forum.php?mod=viewthread&tid=$post[tid]&page=$page" rel="nofollow">{lang thread_show_all}</a>
+						<!--{/if}-->
+					<!--{/if}-->
+				<!--{elseif getstatus($post['status'], 5)}-->
+					<!--{if !$_G['setting']['authoronleft']}--><a href="javascript:;" class="xi2">$post[author]</a><!--{/if}-->
+					&nbsp;<em id="authorposton$post[pid]">{lang poston} $post[dateline]</em>
+				<!--{elseif $post['authorid'] && $post['username'] && $post['anonymous'] || !$post['authorid'] && !$post['username']}-->
+					$_G[setting][anonymoustext]&nbsp;
+					<em id="authorposton$post[pid]">{lang poston} $post[dateline]</em>
+				<!--{/if}-->
+                
+				<!--{if !IS_ROBOT && !$_G['forum_thread']['archiveid'] && $post['first'] }-->
+					<!--{if $_G['forum_thread']['attachment'] == 2 && $_G['group']['allowgetimage'] && (!$_G['setting']['guestviewthumb']['flag'] || $_G['setting']['guestviewthumb']['flag'] && $_G['uid'])}-->
+						<span class="pipe">|</span><a href="forum.php?mod=viewthread&tid=$_G[tid]&from=album">{lang view_bigpic}</a>
+					<!--{/if}-->
+						<span class="none"><img src="{IMGDIR}/arw_r.gif" class="vm" alt="{lang replycredit}" /></span>
+					<!--{if !$rushreply}-->
+						<!--{if $ordertype != 1}-->
+							<span class="pipe show">|</span><a href="forum.php?mod=viewthread&tid=$_G[tid]&extra=$_GET[extra]&ordertype=1"  class="show">{lang post_descview}</a>
+						<!--{else}-->
+							<span class="pipe show">|</span><a href="forum.php?mod=viewthread&tid=$_G[tid]&extra=$_GET[extra]&ordertype=2"  class="show">{lang post_ascview}</a>
+						<!--{/if}-->
+					<!--{/if}-->
+				<!--{/if}-->
+				<!--{if $post['first']}-->
+				<span class="pipe show">|</span><a href="javascript:;" onclick="readmode($('thread_subject').innerHTML, $post[pid]);" class="show">{lang read_mode}</a>
+				<!--{/if}-->
+				<!--{hook/viewthread_postheader $postcount}-->
+				</div>
+                
+                </p>
+				<span class="xg1">
+					<!--{if $_G['forum_thread'][displayorder] == -2}-->({lang moderating})
+					<!--{elseif $_G['forum_thread'][displayorder] == -3}-->({lang have_ignored})
+					<!--{elseif $_G['forum_thread'][displayorder] == -4}-->({lang draft})
+						<!--{if $post['first'] && $post['invisible'] == -3}-->
+							<a class="psave" href="forum.php?mod=misc&action=pubsave&tid=$_G[tid]">{lang published}</a>
+						<!--{/if}-->
+					<!--{/if}-->
+					<!--{if $_G['setting']['threadhidethreshold'] && $_G['forum_thread']['hidden'] >= $_G['setting']['threadhidethreshold']}-->						
+						<!--{if $_G['forum_thread']['authorid'] == $_G['uid']}--><a class="psave" id="hiderecover" title="{lang hiderecover_tips}" href="forum.php?mod=misc&action=hiderecover&tid=$_G[tid]&formhash={FORMHASH}" onclick="showWindow(this.id, this.href, 'get', 0);">{lang hidden}</a><!--{else}-->({lang hidden})<!--{/if}-->
+						&nbsp;
+					<!--{/if}-->
+					<!--{if $_G['forum_thread']['recommendlevel']}-->
+						&nbsp;<img src="{IMGDIR}/recommend_$_G['forum_thread']['recommendlevel'].gif" alt="" title="{lang thread_recommend} $_G['forum_thread'][recommends]" />
+					<!--{/if}-->
+					<!--{if $_G['forum_thread'][heatlevel]}-->
+						&nbsp;<img src="{IMGDIR}/hot_$_G['forum_thread'][heatlevel].gif" alt="" title="{lang heats}: $_G['forum_thread']['heats']" />
+					<!--{/if}-->
+					<!--{if $_G['forum_thread']['closed'] == 1}-->
+						&nbsp;<img src="{IMGDIR}/locked.gif" alt="{lang close}" title="{lang close}" class="vm" />
+					<!--{/if}-->
+					<a href="forum.php?mod=viewthread&tid=$_G[tid]$fromuid" onclick="return copyThreadUrl(this, '$_G[setting][bbname]')" {if $fromuid}title="{lang share_url_copy_comment}"{/if}>[{lang share_url_copy}]</a>
+				</span>
+				<!--{hook/viewthread_title_extra}-->
+			</td>
+		</tr>
+	</table>
+	<!--{if $_G['forum_thread']['replycredit'] > 0 || $rushreply}-->
+	<div id="pl_top">
+		<table cellspacing="0" cellpadding="0">
+			<tr class="ad">
+				<td class="pls"></td>
+				<td class="plc"></td>
+			</tr>
+			<!--{if $_G['forum_thread']['replycredit'] > 0 }-->
+				<tr>
+					<!--{if !$close_leftinfo}-->
+					<td class="pls vm ptm">
+					<!--{else}-->
+					<td class="pls ptm pbm xi1" colspan="2">
+					<!--{/if}-->
+						<img src="{IMGDIR}/thread_prize_s.png" class="hm" alt="{lang replycredit}" />
+							<strong>{$_G['forum_thread']['replycredit']} {$_G['setting']['extcredits'][$_G[forum_thread][replycredit_rule][extcreditstype]][unit]}{$_G['setting']['extcredits'][$_G[forum_thread][replycredit_rule][extcreditstype]][title]}</strong>
+					<!--{if !$close_leftinfo}-->
+					</td>
+					<td class="plc ptm pbm xi1">
+					<!--{else}-->
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<!--{/if}-->
+						{lang thread_replycredit_tips1} {lang thread_replycredit_tips2}<!--{if $_G['forum_thread']['replycredit_rule'][random] > 0}--><span class="xg1">{lang thread_replycredit_tips3}</span><!--{/if}-->
+					</td>
+				</tr>
+				<!--{if $rushreply}-->
+				<tr class="ad">
+					<td class="pls"></td>
+					<td class="plc"></td>
+				</tr>
+				<!--{/if}-->
+		<!--{/if}-->
+
+		<!--{if $rushreply}-->
+			<tr>
+				<!--{if !$close_leftinfo}-->
+				<td class="pls vm ptm">
+					<img src="{IMGDIR}/rushreply_s.png" class="vm" alt="{lang rushreply}" />
+					<strong>{lang rushreply}</strong>
+				</td>
+				<td class="plc ptm pbm xi1">
+				<!--{else}-->
+				<td class="plc ptm pbm xi1" colspan="2">
+					<img src="{IMGDIR}/rushreply_s.png" class="vm" alt="{lang rushreply}" />
+				<!--{/if}-->
+					<!--{if $rushresult[rewardfloor]}-->
+						<span class="y">
+						<!--{if $_G['uid'] == $_G['thread']['authorid'] || $_G['forum']['ismoderator']}--><a href="javascript:;" onclick="showWindow('membernum', 'forum.php?mod=ajax&action=get_rushreply_membernum&tid=$_G[tid]')" class="y pn xi2"><span>{lang thread_rushreply_statnum}</span></a><!--{/if}-->
+						<!--{if !$_GET['checkrush']}-->
+								<a href="forum.php?mod=viewthread&tid=$post[tid]&checkrush=1" rel="nofollow" class="y pn xi2"><span>{lang rushreply_view}</span></a>
+						<!--{/if}-->
+						</span>
+					<!--{/if}-->
+					<!--{if $rushresult[creditlimit] == ''}-->
+						{lang thread_rushreply}&nbsp;
+					<!--{else}-->
+						{lang thread_rushreply_limit} &nbsp;
+					<!--{/if}-->
+					<!--{if $rushresult['timer']}-->
+					<span id="rushtimer_$thread[tid]"> {lang havemore_special} <span id="rushtimer_body_$thread[tid]"></span> <script language="javascript">settimer($rushresult['timer'], 'rushtimer_body_$thread[tid]');</script>{if $rushresult['timertype'] == 'start'} {lang header_start} {else} {lang over} {/if} {lang right_special}</span>
+					<!--{/if}-->
+					<!--{if $rushresult[stopfloor]}-->
+						{lang thread_rushreply_end}$rushresult[stopfloor]&nbsp;
+					<!--{/if}-->
+					<!--{if $rushresult[rewardfloor]}-->
+						{lang thread_rushreply_floor}: $rushresult[rewardfloor]&nbsp;
+					<!--{/if}-->
+					<!--{if $rushresult[rewardfloor] && $_GET['checkrush']}-->
+						<p class="ptn">
+							<!--{if $countrushpost}-->[<strong>$countrushpost</strong>]{lang thread_rushreply_rewardnum}<!--{else}--> {lang thread_rushreply_noreward} <!--{/if}-->&nbsp;&nbsp;
+							<a href="forum.php?mod=viewthread&tid=$_G[tid]" class="xi2">{lang thread_rushreply_check_back}</a>
+						</p>
+					<!--{/if}-->
+				</td>
+			</tr>
+		<!--{/if}-->
+		</table>
+	</div>
+	<!--{/if}-->
+
+	<!--{hook/viewthread_title_row}-->
+
+	<table cellspacing="0" cellpadding="0" class="ad">
+		<tr>
+			<td class="pls">
+			<!--{if !$close_leftinfo}-->
+			</td>
+			<td class="plc">
+			<!--{/if}-->
+			</td>
+		</tr>
+	</table>
+	<!--{eval $postcount = 0;}-->
+	<!--{loop $postlist $post}-->
+		<!--{if $rushreply && $_GET['checkrush'] && $post['rewardfloor'] != 1}-->
+			<!--{eval continue;}-->
+		<!--{/if}-->
+		<div class="postaaa posta{$postcount}" id="post_$post[pid]" {if $_G['blockedpids'] && $post['inblacklist']}style="display:none;"{/if}>
+			<!--{subtemplate forum/viewthread_node}-->
+            
+            <!--{if !$postcount && !$_G['forum_thread']['archiveid'] && $post['first'] }-->
+            <div class="loulou">
+                    <span class="huifu"><span class="shuz">$_G[forum_thread][allreplies]</span><span class="wenz">条回复</span> </span>
+					<div id="fj" class="y">
+                    
+						<label class="z">{lang thread_redirect_postno}</label>
+						<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=$_G[tid]&authorid=$_GET[authorid]&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="{lang thread_redirect_postno_tips}" />
+						<a href="javascript:;" id="fj_btn" class="z" title="{lang thread_redirect_postno_tips}"><img src="{IMGDIR}/fj_btn.png" alt="{lang thread_redirect_postno_tips}" class="vm" /></a>
+					</div>
+                    </div>
+				<!--{/if}-->
+                
+                
+            
+		</div>
+		<!--{eval $postcount++;}-->
+	<!--{/loop}-->
+    
+    
+	<div id="postlistreply" class="pl"><div id="post_new" class="viewthread_table" style="display: none"></div></div>
+	<!--{if $_G['blockedpids']}-->
+		<div id='hiddenpoststip'><a href='javascript:display_blocked_post();'>{lang other_reply_hide}</a></div>
+		<div id="hiddenposts"></div>
+	<!--{/if}-->
+</div>
+
+<!--{if $modmenu['thread']}-->
+	<div class="xi2 mbm pbm bbs" id="yunyun">
+    
+	<script type="text/javascript">
+		$('modmenu').lastChild.style.visibility = 'hidden';
+		document.write($('modmenu').innerHTML);
+	</script>
+	</div>
+<!--{/if}-->
+
+<form method="post" autocomplete="off" name="modactions" id="modactions">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="optgroup" />
+	<input type="hidden" name="operation" />
+	<input type="hidden" name="listextra" value="$_GET[extra]" />
+	<input type="hidden" name="page" value="$page" />
+</form>
+
+$_G['forum_tagscript']
+
+<!--{if $multipage && $page < $_G['setting']['threadmaxpages'] && $page < $_G['page_next']}-->
+<!--{eval $nxtpage = $page + 1;}-->
+	<div class="pgbtn"><a href="forum.php?mod=viewthread&tid=$_G[tid]{if $_GET[authorid]}&authorid=$_GET[authorid]{/if}&page=$nxtpage" hidefocus="true" class="bm_h">{lang next_page_extra}</a></div>
+<!--{/if}-->
+<div class="pgb fhlb"{if $_G['setting']['visitedforums']} id="visitedforumstmp" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})"{/if}><a href="$upnavlink">返回列表</a></div>
+<div class="pgs mtm mbm cl" id="pgtb">
+	$multipage
+	
+	<!--{if !$_G['forum_thread']['is_archived']}-->
+		<div class="fatie"><a id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}">发新帖</a></div>
+	<!--{/if}-->
+	<!--{if $allowpostreply && !$_G['forum_thread']['archiveid']}-->
+		<div class="fatie r"><a id="post_replytmp" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}">发回帖</a></div>
+	<!--{/if}-->
+</div>
+
+<!--{hook/viewthread_middle}-->
+<!--[diy=diyfastposttop]--><div id="diyfastposttop" class="area"></div><!--[/diy]-->
+<!--{if $fastpost}-->
+	<!--{subtemplate forum/viewthread_fastpost}-->
+<!--{/if}-->
+
+<!--{hook/viewthread_bottom}-->
+
+<!--{if ($_G['setting']['visitedforums']) && $_G['forum']['status'] != 3}-->
+	<div id="visitedforums_menu" class="p_pop blk cl" style="display: none;">
+		<table cellspacing="0" cellpadding="0">
+			<tr>
+				<td id="v_forums">
+					<h3 class="mbn pbn bbda xg1">{lang viewed_forums}</h3>
+					<ul class="xl xl1">
+						$_G['setting']['visitedforums']
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</div>
+<!--{/if}-->
+<!--{if $_G['medal_list']}-->
+<!--{loop $_G['medal_list'] $medalid $medal}-->
+	<div id="md_{$medalid}_menu" class="tip tip_4" style="display: none;">
+		<div class="tip_horn"></div>
+		<div class="tip_c">
+			<h4>$medal[name]</h4>
+			<p>$medal[description]</p>
+		</div>
+	</div>
+<!--{/loop}-->
+<!--{/if}-->
+
+<!--{if !IS_ROBOT && !empty($_G[setting][lazyload])}-->
+	<script type="text/javascript">
+	new lazyload();
+	</script>
+<!--{/if}-->
+
+<!--{if !IS_ROBOT && $_G['setting']['threadmaxpages'] > 1}-->
+	<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, <!--{if $page > 1}-->1<!--{else}-->0<!--{/if}-->, <!--{if $page < $_G['setting']['threadmaxpages'] && $page < $_G['page_next']}-->1<!--{else}-->0<!--{/if}-->, 'forum.php?mod=viewthread&tid=$_G[tid]<!--{if $_GET[authorid]}-->&authorid=$_GET[authorid]<!--{/if}-->', $page);}</script>
+<!--{/if}-->
+</div>
+</div>
+
+<!--{if $_G['relatedlinks'] || $_GET['highlight']}-->
+	<script type="text/javascript">
+		var relatedlink = [];
+		<!--{loop $_G['relatedlinks'] $key $link}-->
+		relatedlink[$key] = {'sname':'$link[name]', 'surl':'$link[url]'};
+		<!--{/loop}-->
+		{eval $highlights = explode(' ', str_replace(array('\'', chr(125)), array('&#039;', '&#125;'), dhtmlspecialchars($_GET['highlight'])));}
+		<!--{loop $highlights $word}-->
+		{eval $key++;}
+		relatedlink[$key] = {'sname':'$word', 'surl':''};
+		<!--{/loop}-->
+		relatedlinks('postmessage_$_G[forum_firstpid]');
+	</script>
+<!--{/if}-->
+
+<!--{if !empty($_G['cookie']['clearUserdata']) && $_G['cookie']['clearUserdata'] == 'forum'}-->
+	<script type="text/javascript">saveUserdata('forum_'+discuz_uid, '')</script>
+<!--{/if}-->
+
+<script type="text/javascript">
+<!--{if $_G['forum']['picstyle'] && ($_G['forum']['ismoderator'] || $_G['uid'] == $_G['thread']['authorid'])}-->
+function showsetcover(obj) {
+	if(obj.parentNode.id == 'postmessage_$_G[forum_firstpid]') {
+		var defheight = $_G['setting']['forumpicstyle']['thumbheight'];
+		var defwidth = $_G['setting']['forumpicstyle']['thumbwidth'];
+		var newimgid = 'showcoverimg';
+		var imgsrc = obj.src ? obj.src : obj.file;
+		if(!imgsrc) return;
+
+		var tempimg=new Image();
+		tempimg.src=imgsrc;
+		if(tempimg.complete) {
+			if(tempimg.width < defwidth || tempimg.height < defheight) return;
+		} else {
+			return;
+		}
+		if($(newimgid) && obj.id != newimgid) {
+			$(newimgid).id = 'img'+Math.random();
+		}
+		if($(newimgid+'_menu')) {
+			var menudiv = $(newimgid+'_menu');
+		} else {
+			var menudiv = document.createElement('div');
+			menudiv.className = 'tip tip_4 aimg_tip';
+			menudiv.id = newimgid+'_menu';
+			menudiv.style.position = 'absolute';
+			menudiv.style.display = 'none';
+			obj.parentNode.appendChild(menudiv);
+		}
+		menudiv.innerHTML = '<div class="tip_c xs0"><a onclick="showWindow(\'setcover_'+newimgid+'\', this.href)" href="forum.php?mod=ajax&amp;action=setthreadcover&amp;tid=$_G[tid]&amp;pid=$_G[forum_firstpid]&amp;fid=$_G[fid]&imgurl='+imgsrc+'">{lang set_cover}</a></div>';
+		obj.id = newimgid;
+		showMenu({'ctrlid':newimgid,'pos':'12'});
+	}
+	return;
+}
+<!--{/if}-->
+function succeedhandle_followmod(url, msg, values) {
+	var fObj = $('followmod_'+values['fuid']);
+	if(values['type'] == 'add') {
+		fObj.innerHTML = '{lang nofollow}';
+		fObj.href = 'home.php?mod=spacecp&ac=follow&op=del&fuid='+values['fuid'];
+	} else if(values['type'] == 'del') {
+		fObj.innerHTML = '{lang follow}';
+		fObj.href = 'home.php?mod=spacecp&ac=follow&op=add&hash={FORMHASH}&fuid='+values['fuid'];
+	}
+}
+<!--{if $_G['blockedpids']}-->
+var blockedPIDs = [<!--{echo implode(',', $_G['blockedpids'])}-->];
+<!--{/if}-->
+<!--{if $postlist && empty($_G['setting']['disfixedavatar'])}-->
+fixed_avatar([<!--{echo implode(',', array_keys($postlist))}-->], {if empty($_G['setting']['disfixednv_viewthread']) }1{else}0{/if});
+<!--{elseif empty($_G['setting']['disfixednv_viewthread'])}-->
+fixed_top_nv();
+<!--{/if}-->
+</script>
+<!--{template common/footer}-->

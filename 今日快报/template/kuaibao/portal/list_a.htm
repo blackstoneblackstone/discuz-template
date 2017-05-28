@@ -1,0 +1,153 @@
+<!--{template common/header}-->
+<!--[name]今日快报-门户[/name]-->
+<!--{eval $list = array();}-->
+<!--{eval $wheresql = category_get_wheresql($cat);}-->
+<!--{eval $list = category_get_list($cat, $wheresql, $page);}-->
+
+<link rel="stylesheet" type="text/css" href="template/xinglan_h12/common/index.css">
+
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
+		<a href="$_G[setting][navs][1][filename]">{lang portal}</a> <em>&rsaquo;</em>
+		<!--{loop $cat[ups] $value}--> <a href="{$portalcategory[$value['catid']]['caturl']}">$value[catname]</a><em>&rsaquo;</em><!--{/loop}-->
+		$cat[catname]
+	</div>
+</div>
+
+<!--[diy=diyab]--><div id="diyab" class="area"></div><!--[/diy]-->
+
+<!--{ad/text/wp a_t}-->
+<style id="diy_style" type="text/css"></style>
+<div class="wp">
+	<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+
+<div id="ct" class="ct2 wp cl">
+	<div class="mn">
+		<!--{ad/articlelist/mbm hm/1}--><!--{ad/articlelist/mbm hm/2}-->
+		<!--[diy=listcontenttop]--><div id="listcontenttop" class="area"></div><!--[/diy]-->
+		<div class="bm">
+        <div class="lbfl">
+			<div class="bm_h cl">
+				<!--{if $_G[setting][rssstatus] && !$_GET['archiveid']}--><a href="portal.php?mod=rss&catid=$cat[catid]" class="y xi2 rss" target="_blank" title="RSS">{lang rss_subscribe_this}</a><!--{/if}-->
+				<!--{if ($_G['group']['allowpostarticle'] || $_G['group']['allowmanagearticle'] || $categoryperm[$catid]['allowmanage'] || $categoryperm[$catid]['allowpublish']) && empty($cat['disallowpublish'])}-->
+				<a href="portal.php?mod=portalcp&ac=article&catid=$cat[catid]" class="y xi2 addnew">{lang article_publish}</a>
+				<!--{/if}-->
+				<h1 class="xs2"><span>$cat[catname]<em>列表</em></span></h1>
+			</div>
+			<!--{if $cat[subs]}-->
+			<div class="bm_c bbda">
+				下级分类&nbsp;:&nbsp;&nbsp;
+				<!--{eval $i = 1;}-->
+				<!--{loop $cat[subs] $value}-->
+				<!--{if $i != 1}--><span class="pipe">|</span><!--{/if}--><a href="{$portalcategory[$value['catid']]['caturl']}" class="xi2">$value[catname]</a><!--{eval $i--;}-->
+				<!--{/loop}-->
+			</div>
+			<!--{/if}-->
+            </div>
+		  <div class="bm_c xld">
+            <!--{eval $i = 1;}-->
+			<!--{loop $list['list'] $value}-->
+				<!--{eval $highlight = article_title_style($value);}-->
+				<!--{eval $article_url = fetch_article_url($value);}-->
+				<!--{if isset($_G['cache']['plugin']['will_subnav'])}-->
+				<!--{eval $art_comment = get_commentnum($value[aid]);}-->
+				<!--{else}-->
+				<!--{eval $art_comment =0;}-->
+				<!--{/if}-->
+                 
+			<div class="top_new cl newss_{$i}">
+              
+					<div class="box01 cl">
+                    <h2><!--{if $value[catname] && $cat[subs]}--><span class="xg1 fenlei"><label class="wenbn"><a href="{$portalcategory[$value['catid']]['caturl']}" class="xi2">$value[catname]</a></label></span><!--{/if}-->
+<a href="$article_url" target="_blank" class="xi2" $highlight>{echo cutstr($value[title],70)}</a> <!--{if $value[status] == 1}-->({lang moderate_need})<!--{/if}--></h2>
+						<!--{if $value[pic]}-->
+						<div class="new_pic pic02">
+                       
+						    <a href="$article_url" target="_blank"><img src="$value[pic]" alt="$value[title]" class="tn" /></a>
+						</div>
+						<!--{/if}-->	
+						<div class="rig">
+						
+                        <div id="weibo_info01" class="new_body body02 grey64">{echo cutstr($value[summary],280)}...</div>
+                        <div class="new_weibo">
+							<span class="xg1 time">发表于：$value[dateline]</span>
+							<span class="xg1 zuoz">作者：$value[username]</span>
+                           
+							<!--{if $_G['group']['allowmanagearticle'] || ($_G['group']['allowpostarticle'] && $value['uid'] == $_G['uid'] && (empty($_G['group']['allowpostarticlemod']) || $_G['group']['allowpostarticlemod'] && $value['status'] == 1)) || $categoryperm[$value['catid']]['allowmanage']}-->
+							<span class="xg1">
+                           
+								<!--<span class="pipe">|</span>-->
+								<label><a href="portal.php?mod=portalcp&ac=article&op=edit&aid=$value[aid]">{lang edit}</a></label>
+								<!--<span class="pipe">|</span>-->
+								<label><a href="portal.php?mod=portalcp&ac=article&op=delete&aid=$value[aid]" id="article_delete_$value[aid]" onclick="showWindow(this.id, this.href, 'get', 0);">{lang delete}</a></label>
+							</span>
+                             
+							<!--{/if}--><!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+<span class="bds_more">分享到：</span>
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->								
+						</div>
+                      
+						 <a class="zxreadall" href="$article_url" target="_blank">详细阅读</a>
+					</div>
+				</div>
+			  </div>
+       <!--{eval $i++;}-->
+			<!--{/loop}--> 
+            
+            
+			</div>
+			<!--[diy=listloopbottom]--><div id="listloopbottom" class="area"></div><!--[/diy]-->
+		</div>
+		<!--{ad/articlelist/mbm hm/3}--><!--{ad/articlelist/mbm hm/4}-->
+		<!--{if $list['multi']}--><div class="pgs cl">{$list['multi']}</div><!--{/if}-->
+
+		<!--[diy=diycontentbottom]--><div id="diycontentbottom" class="area"></div><!--[/diy]-->
+
+	</div>
+	<div class="sd pph">
+
+		<div class="drag">
+			<!--[diy=diyrighttop]--><div id="diyrighttop" class="area"></div><!--[/diy]-->
+		</div>
+
+<!--{if $cat[others]}-->
+		<div class="bm" style="display:none;">
+			<div class="bm_h cl">
+				<h2>{lang category_related}</h2>
+			</div>
+			<div class="bm_c">
+				<ul class="xl xl2 cl">
+					<!--{loop $cat[others] $value}-->
+					<li>&bull; <a href="{$portalcategory[$value['catid']]['caturl']}">$value[catname]</a></li>
+					<!--{/loop}-->
+				</ul>
+			</div>
+		</div>
+<!--{/if}-->
+
+		<div class="drag">
+			<!--[diy=diy2]--><div id="diy2" class="area"></div><!--[/diy]-->
+		</div>
+
+	</div>
+</div>
+
+<div class="wp mtn">
+	<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+
+<!--{template common/footer}-->
