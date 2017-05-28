@@ -18,3 +18,9 @@
 2. 频道页后台选择模板xinglan 开头的 前台页面导入portal_list.xml文件(后台门户>>新建频道>>编辑>>列表页模板名>>选择xinglan开头的文件,开启频道。)
 3. 文章内容页导入portal_view.xml文件
 4. 论坛首页导入forum_discuz.xml文件
+
+##效果展示
+
+![img]("DOC/0.jpg")
+![img]("DOC/1.jpg")
+![img]("DOC/2.jpg")
