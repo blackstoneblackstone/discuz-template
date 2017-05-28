@@ -21,6 +21,6 @@
 
 ##效果展示
 
-![img]("DOC/0.jpg")
-![img]("DOC/1.jpg")
-![img]("DOC/2.jpg")
+![](DOC/0.jpg)
+![](DOC/1.jpg)
+![](DOC/2.jpg)
